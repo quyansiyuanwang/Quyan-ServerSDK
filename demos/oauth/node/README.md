@@ -75,4 +75,4 @@ pnpm run start
 - 该示例不走 `Auth Center`
 - `/oauth/token` 返回的是 OAuth 风格错误对象，而不是主系统常规 `{ code, message, data }` 包装
 - Access Token 应作为不透明 bearer token 使用，不做前端解析
-- 如果你只需要多语言服务端接入模板，请改看 `sdks/oauth/*`
+- 如果你只需要多语言服务端接入模板，请改看 `ServerSDK/sdks/oauth/*`

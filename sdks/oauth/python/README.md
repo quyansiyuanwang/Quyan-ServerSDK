@@ -1,6 +1,6 @@
 # OAuth SDK - Python
 
-`sdks/oauth/python` 提供 Python 版本的可运行 OAuth 集成模板，适合脚本、后端服务和自动化任务。
+`ServerSDK/sdks/oauth/python` 提供 Python 版本的可运行 OAuth 集成模板，适合脚本、后端服务和自动化任务。
 
 ## 功能
 

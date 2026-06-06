@@ -1,6 +1,6 @@
 # OAuth SDK - Go
 
-`sdks/oauth/go` 提供 Go 版本的可运行 OAuth 集成模板。
+`ServerSDK/sdks/oauth/go` 提供 Go 版本的可运行 OAuth 集成模板。
 
 ## 功能
 

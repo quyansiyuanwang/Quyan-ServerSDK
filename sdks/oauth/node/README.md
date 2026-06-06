@@ -1,6 +1,6 @@
 # OAuth SDK - Node.js
 
-`sdks/oauth/node` 提供一个可直接运行的 Node.js 服务端 OAuth 示例，适合后端应用完成授权码换 token、刷新 token，并调用受保护资源。
+`ServerSDK/sdks/oauth/node` 提供一个可直接运行的 Node.js 服务端 OAuth 示例，适合后端应用完成授权码换 token、刷新 token，并调用受保护资源。
 
 ## 功能
 

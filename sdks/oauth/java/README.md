@@ -1,6 +1,6 @@
 # OAuth SDK - Java
 
-`sdks/oauth/java` 提供 Java 17 + Maven 版本的 OAuth 集成示例。
+`ServerSDK/sdks/oauth/java` 提供 Java 17 + Maven 版本的 OAuth 集成示例。
 
 ## 功能
 

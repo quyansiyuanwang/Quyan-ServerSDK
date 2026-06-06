@@ -19,5 +19,5 @@ sdks/
 ## 使用建议
 
 - 想快速跑通浏览器授权流程：看 `demos/oauth/node/`
-- 想从后端服务发起 OAuth 换 token / 刷新 / 调资源：看 `sdks/oauth/<language>/`
+- 想从后端服务发起 OAuth 换 token / 刷新 / 调资源：看 `ServerSDK/sdks/oauth/<language>/`
 - 如果只需要普通业务 API 调用，可继续参考文档站中的 `Node SDK` 与 `Python SDK`
