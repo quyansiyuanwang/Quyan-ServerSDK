@@ -1,86 +1,77 @@
 # OAuth Demo
 
-Simple Node demo for the repository's **traditional OAuth 2.0** flow.
+`demos/oauth-demo` 是一个最小可运行的传统 OAuth 2.0 集成示例，演示如何与本仓库后端的 OAuth 能力对接。
 
-This demo shows:
+## 覆盖流程
 
-- authorization code login
-- PKCE (`S256`) support
-- callback token exchange
-- refresh token rotation
-- calling `GET /users/me`
-- revoke + logout
+- Authorization Code 登录
+- PKCE（`S256`）
+- 回调换 token
+- Refresh Token 刷新
+- 访问 `GET /users/me`
+- Revoke + Logout
 
-## What it integrates with
+## 依赖接口
 
-This demo targets the existing traditional OAuth implementation in the main project:
+- `/oauth/authorize`
+- `/oauth/token`
+- `/oauth/revoke`
+- `GET /users/me`
 
-- authorization page: `/oauth/authorize`
-- token endpoint: `/oauth/token`
-- revoke endpoint: `/oauth/revoke`
-- protected resource example: `GET /users/me`
+## 环境准备
 
-It does **not** use `Auth Center`.
+先在主系统中创建并审批 OAuth Client，并确认：
 
-## Prerequisites
+1. client 已批准
+2. 已包含 `profile` scope
+3. `redirectUris` 精确包含回调地址
+4. 已拿到 `client_id` 与 `client_secret`
 
-Before starting the demo, create an OAuth client in the main site and make sure:
+推荐本地回调：`http://localhost:3200/oauth/callback`
 
-1. the client is **approved**
-2. the client includes the `profile` scope
-3. the client `redirectUris` contains your demo callback exactly
-4. you have the `client_id` and `client_secret`
+## 配置
 
-Recommended callback for local development:
+参考 `.env.example` 创建 `.env`：
 
-- `http://localhost:3200/oauth/callback`
+```env
+PORT=3200
+SESSION_SECRET=replace-with-a-long-random-string
+OAUTH_BASE_URL=http://localhost:10001
+OAUTH_AUTHORIZE_BASE_URL=http://localhost:10001
+OAUTH_CLIENT_ID=
+OAUTH_CLIENT_SECRET=
+OAUTH_REDIRECT_URI=http://localhost:3200/oauth/callback
+OAUTH_SCOPE=profile
+```
 
-## Configuration
+## 运行方式
 
-Copy `.env.example` to `.env` and fill in the values:
+在仓库根目录：
 
-- `PORT`: local port for the demo app
-- `SESSION_SECRET`: long random string for the local demo session
-- `OAUTH_BASE_URL`: OAuth API host, for example `http://localhost:10001` or `https://api.qysyw.cn`
-- `OAUTH_AUTHORIZE_BASE_URL`: optional separate host for the consent page if it differs from the API host
-- `OAUTH_CLIENT_ID`: approved OAuth client ID
-- `OAUTH_CLIENT_SECRET`: approved OAuth client secret
-- `OAUTH_REDIRECT_URI`: must exactly match the client whitelist entry
-- `OAUTH_SCOPE`: space-separated scopes, default `profile`
+```bash
+pnpm run demo:oauth
+```
 
-## Run
+或在当前目录：
 
-From repo root:
+```bash
+pnpm install
+pnpm run dev
+pnpm run start
+```
 
-1. install demo dependencies in `demos/oauth-demo`
-2. start the demo with `pnpm run demo:oauth`
-3. open `http://localhost:3200`
+访问：`http://localhost:3200`
 
-Or run directly inside `demos/oauth-demo` with:
+## 常见问题
 
-- `pnpm run dev`
-- `pnpm run start`
+- `redirect_uri` 与后台配置不完全一致
+- client 未批准
+- `client_secret` 错误
+- scope 未授权
+- API host 与授权页 host 配置混淆
 
-## Flow summary
+## 说明
 
-1. Click **Start OAuth Login**
-2. The demo creates `state` + PKCE `code_verifier`
-3. The browser is redirected to the main site's `/oauth/authorize`
-4. After approval, the main site redirects back to `/oauth/callback`
-5. The demo exchanges the code at `/oauth/token`
-6. The demo stores tokens in the server session
-7. You can fetch `GET /users/me`, refresh the token, or revoke and logout
-
-## Notes
-
-- The server currently requires PKCE when the OAuth client has `isPkceRequired = true`; this demo always sends PKCE `S256`.
-- `/oauth/token` returns RFC-style OAuth errors like `{ error, error_description }`, not the normal wrapped response format.
-- Access tokens are opaque bearer tokens and should not be parsed client-side.
-
-## Common failure cases
-
-- `redirect_uri` does not exactly match the registered URI
-- client is not approved yet
-- client secret is wrong
-- requested scope is not allowed for the client
-- API host and authorize page host were configured incorrectly
+- 该示例不走 `Auth Center`
+- `/oauth/token` 返回的是 OAuth 风格错误对象，而不是主系统常规 `{ code, message, data }` 包装
+- Access Token 应作为不透明 bearer token 使用，不做前端解析
