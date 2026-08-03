@@ -211,7 +211,7 @@ app.post('/resource', async (req, res) => {
         content: `
           <h1>Protected Resource Result</h1>
           <p><a href="/">Back to home</a></p>
-          ${renderJsonCard('GET /users/me', result)}
+          ${renderJsonCard('GET /v1/users/me', result)}
         `,
       }),
     )
@@ -222,7 +222,7 @@ app.post('/resource', async (req, res) => {
         content: `
           <h1>Protected Resource Failed</h1>
           <p><a href="/">Back to home</a></p>
-          ${renderJsonCard('GET /users/me error', normalizeAxiosError(resourceError))}
+          ${renderJsonCard('GET /v1/users/me error', normalizeAxiosError(resourceError))}
         `,
       }),
     )
@@ -458,11 +458,11 @@ function renderHome({ config, token, profileResult, sessionState }) {
 
       <div class="card">
         <h2>Protected resource</h2>
-        <p>Calls <code>GET /users/me</code> with <code>Authorization: Bearer oat_...</code>.</p>
+        <p>Calls <code>GET /v1/users/me</code> with <code>Authorization: Bearer oat_...</code>.</p>
         <form method="post" action="/resource">
           <button type="submit" ${token?.accessToken ? '' : 'disabled'}>Fetch Current User</button>
         </form>
-        ${profileResult ? renderJsonCard('Latest /users/me result', profileResult) : '<p class="muted">No resource call yet.</p>'}
+        ${profileResult ? renderJsonCard('Latest /v1/users/me result', profileResult) : '<p class="muted">No resource call yet.</p>'}
       </div>
     </section>
   `
