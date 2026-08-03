@@ -68,7 +68,7 @@ func createAuthorizeURL(cfg config, state, codeChallenge string) string {
     values.Set("state", state)
     values.Set("code_challenge", codeChallenge)
     values.Set("code_challenge_method", "S256")
-    return strings.TrimRight(cfg.OAuthBaseURL, "/") + "/oauth/authorize?" + values.Encode()
+    return strings.TrimRight(cfg.OAuthBaseURL, "/") + "/v1/oauth/authorize?" + values.Encode()
 }
 
 func exchangeAuthorizationCode(cfg config, code, codeVerifier string) (*tokenResponse, error) {
@@ -90,7 +90,7 @@ func refreshAccessToken(cfg config, refreshToken string) (*tokenResponse, error)
 }
 
 func fetchCurrentUser(cfg config, accessToken string) (map[string]any, error) {
-    request, err := http.NewRequest(http.MethodGet, strings.TrimRight(cfg.OAuthBaseURL, "/")+"/users/me", nil)
+    request, err := http.NewRequest(http.MethodGet, strings.TrimRight(cfg.OAuthBaseURL, "/")+"/v1/users/me", nil)
     if err != nil {
         return nil, err
     }
@@ -126,7 +126,7 @@ func doTokenRequest(cfg config, body map[string]string) (*tokenResponse, error) 
         return nil, err
     }
 
-    request, err := http.NewRequest(http.MethodPost, strings.TrimRight(cfg.OAuthBaseURL, "/")+"/oauth/token", strings.NewReader(string(raw)))
+    request, err := http.NewRequest(http.MethodPost, strings.TrimRight(cfg.OAuthBaseURL, "/")+"/v1/oauth/token", strings.NewReader(string(raw)))
     if err != nil {
         return nil, err
     }

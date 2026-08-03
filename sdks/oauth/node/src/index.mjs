@@ -25,7 +25,7 @@ export function createPkcePair() {
 }
 
 export function createAuthorizeUrl({ state, codeChallenge }) {
-  const url = new URL('/oauth/authorize', ensureTrailingSlash(config.oauthBaseUrl))
+  const url = new URL('/v1/oauth/authorize', ensureTrailingSlash(config.oauthBaseUrl))
   url.searchParams.set('response_type', 'code')
   url.searchParams.set('client_id', config.clientId)
   url.searchParams.set('redirect_uri', config.redirectUri)
@@ -38,7 +38,7 @@ export function createAuthorizeUrl({ state, codeChallenge }) {
 
 export async function exchangeAuthorizationCode({ code, codeVerifier }) {
   const { data } = await oauthHttp.post(
-    '/oauth/token',
+    '/v1/oauth/token',
     {
       grant_type: 'authorization_code',
       code,
@@ -58,7 +58,7 @@ export async function exchangeAuthorizationCode({ code, codeVerifier }) {
 
 export async function refreshAccessToken(refreshToken) {
   const { data } = await oauthHttp.post(
-    '/oauth/token',
+    '/v1/oauth/token',
     {
       grant_type: 'refresh_token',
       refresh_token: refreshToken,
@@ -75,7 +75,7 @@ export async function refreshAccessToken(refreshToken) {
 }
 
 export async function fetchCurrentUser(accessToken) {
-  const { data } = await oauthHttp.get('/users/me', {
+  const { data } = await oauthHttp.get('/v1/users/me', {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

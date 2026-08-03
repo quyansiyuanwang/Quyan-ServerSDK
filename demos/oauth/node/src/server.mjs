@@ -92,7 +92,7 @@ app.get('/login', (req, res) => {
     startedAt: Date.now(),
   })
 
-  const authorizeUrl = new URL('/oauth/authorize', ensureTrailingSlash(config.oauthAuthorizeBaseUrl))
+  const authorizeUrl = new URL('/v1/oauth/authorize', ensureTrailingSlash(config.oauthAuthorizeBaseUrl))
   authorizeUrl.searchParams.set('response_type', 'code')
   authorizeUrl.searchParams.set('client_id', config.clientId)
   authorizeUrl.searchParams.set('redirect_uri', config.redirectUri)
@@ -294,7 +294,7 @@ function tokenBasicAuthHeader() {
 
 async function exchangeAuthorizationCode({ code, codeVerifier }) {
   const { data } = await oauthHttp.post(
-    '/oauth/token',
+    '/v1/oauth/token',
     {
       grant_type: 'authorization_code',
       code,
@@ -320,7 +320,7 @@ async function exchangeAuthorizationCode({ code, codeVerifier }) {
 
 async function refreshAccessToken(refreshToken) {
   const { data } = await oauthHttp.post(
-    '/oauth/token',
+    '/v1/oauth/token',
     {
       grant_type: 'refresh_token',
       refresh_token: refreshToken,
@@ -344,7 +344,7 @@ async function refreshAccessToken(refreshToken) {
 
 async function revokeToken(token, tokenTypeHint) {
   const { data } = await oauthHttp.post(
-    '/oauth/revoke',
+    '/v1/oauth/revoke',
     {
       token,
       token_type_hint: tokenTypeHint,
@@ -361,7 +361,7 @@ async function revokeToken(token, tokenTypeHint) {
 }
 
 async function fetchCurrentUser(accessToken) {
-  const { data, status } = await oauthHttp.get('/users/me', {
+  const { data, status } = await oauthHttp.get('/v1/users/me', {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

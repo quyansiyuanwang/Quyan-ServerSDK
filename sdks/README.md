@@ -1,4 +1,4 @@
-# Quyan-ServerSDK
+# Quyan Server SDK
 
 `sdks/` 用于存放面向接入方的 SDK 风格示例工程。与 `demos/` 的区别是：
 

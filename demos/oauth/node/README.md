@@ -8,15 +8,15 @@
 - PKCE（`S256`）
 - 回调换 token
 - Refresh Token 刷新
-- 访问 `GET /users/me`
+- 访问 `GET /v1/users/me`
 - Revoke + Logout
 
 ## 依赖接口
 
-- `/oauth/authorize`
-- `/oauth/token`
-- `/oauth/revoke`
-- `GET /users/me`
+- `/v1/oauth/authorize`
+- `/v1/oauth/token`
+- `/v1/oauth/revoke`
+- `GET /v1/users/me`
 
 ## 环境准备
 
@@ -73,6 +73,6 @@ pnpm run start
 ## 说明
 
 - 该示例不走 `Auth Center`
-- `/oauth/token` 返回的是 OAuth 风格错误对象，而不是主系统常规 `{ code, message, data }` 包装
+- `/v1/oauth/token` 返回的是 OAuth 风格错误对象，而不是主系统常规 `{ code, message, data }` 包装
 - Access Token 应作为不透明 bearer token 使用，不做前端解析
 - 如果你只需要多语言服务端接入模板，请改看 `ServerSDK/sdks/oauth/*`

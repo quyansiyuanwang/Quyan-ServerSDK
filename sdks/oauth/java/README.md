@@ -7,7 +7,7 @@
 - 生成 PKCE 授权 URL
 - 授权码换 token
 - 刷新 token
-- 访问 `GET /users/me`
+- 访问 `GET /v1/users/me`
 - 正确处理 OAuth 风格错误响应
 
 ## 运行

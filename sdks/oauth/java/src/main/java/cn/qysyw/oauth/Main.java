@@ -58,7 +58,7 @@ public final class Main {
 
     public static String createAuthorizeUrl(String state, String codeChallenge) {
         return OAUTH_BASE_URL.replaceAll("/+$", "")
-                + "/oauth/authorize?response_type=code"
+                + "/v1/oauth/authorize?response_type=code"
                 + "&client_id=" + urlEncode(OAUTH_CLIENT_ID)
                 + "&redirect_uri=" + urlEncode(OAUTH_REDIRECT_URI)
                 + "&scope=" + urlEncode(OAUTH_SCOPE)
@@ -70,7 +70,7 @@ public final class Main {
     public static JsonNode exchangeAuthorizationCode(String code, String codeVerifier) throws Exception {
         String body = OBJECT_MAPPER.writeValueAsString(new TokenRequest("authorization_code", code, OAUTH_REDIRECT_URI, codeVerifier, null));
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(OAUTH_BASE_URL.replaceAll("/+$", "") + "/oauth/token"))
+                .uri(URI.create(OAUTH_BASE_URL.replaceAll("/+$", "") + "/v1/oauth/token"))
                 .timeout(Duration.ofSeconds(15))
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
@@ -84,7 +84,7 @@ public final class Main {
     public static JsonNode refreshAccessToken(String refreshToken) throws Exception {
         String body = OBJECT_MAPPER.writeValueAsString(new TokenRequest("refresh_token", null, null, null, refreshToken));
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(OAUTH_BASE_URL.replaceAll("/+$", "") + "/oauth/token"))
+                .uri(URI.create(OAUTH_BASE_URL.replaceAll("/+$", "") + "/v1/oauth/token"))
                 .timeout(Duration.ofSeconds(15))
                 .header("Accept", "application/json")
                 .header("Content-Type", "application/json")
@@ -97,7 +97,7 @@ public final class Main {
 
     public static JsonNode fetchCurrentUser(String accessToken) throws Exception {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(OAUTH_BASE_URL.replaceAll("/+$", "") + "/users/me"))
+                .uri(URI.create(OAUTH_BASE_URL.replaceAll("/+$", "") + "/v1/users/me"))
                 .timeout(Duration.ofSeconds(15))
                 .header("Accept", "application/json")
                 .header("Authorization", "Bearer " + accessToken)

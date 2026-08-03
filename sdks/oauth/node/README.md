@@ -8,8 +8,8 @@
 - 使用 PKCE `S256`
 - 交换授权码
 - 刷新 access token
-- 调用 `GET /users/me`
-- 正确处理 `/oauth/token` 的 OAuth 错误格式
+- 调用 `GET /v1/users/me`
+- 正确处理 `/v1/oauth/token` 的 OAuth 错误格式
 
 ## 配置
 

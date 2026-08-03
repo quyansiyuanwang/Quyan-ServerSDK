@@ -8,7 +8,7 @@
 - 生成 PKCE `S256`
 - 交换授权码
 - 刷新 token
-- 调用 `GET /users/me`
+- 调用 `GET /v1/users/me`
 - 区分 OAuth 协议错误与普通 HTTP 错误
 
 ## 运行

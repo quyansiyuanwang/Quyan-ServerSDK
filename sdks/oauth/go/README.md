@@ -7,8 +7,8 @@
 - 生成 PKCE 授权 URL
 - 交换授权码
 - 刷新 token
-- 调用 `GET /users/me`
-- 识别 `/oauth/token` 的 OAuth 错误结构
+- 调用 `GET /v1/users/me`
+- 识别 `/v1/oauth/token` 的 OAuth 错误结构
 
 ## 运行
 
